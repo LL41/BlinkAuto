@@ -39,8 +39,7 @@ while True:
 					arm_blink(False)
 					currently_armed = False
 				except:
-					print('Disarm failed. Trying again.')
-                    time.sleep(60)
+			        print('Disarm failed. Trying again.')
 					arm_blink(False)
 					currently_armed = False
 				finally:
