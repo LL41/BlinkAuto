@@ -19,9 +19,7 @@ target_ips = ['IP_ADDRESS']
 
 def find_devices(target_ips):
     icmp_request = IP(dst=target_ips)/ICMP()
-
     icmp_replies, _ = sr(icmp_request, timeout=2, verbose=False)
-
     return icmp_replies
 
 lost_device_time = 0
