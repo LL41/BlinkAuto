@@ -6,23 +6,14 @@ import time
 from blinkpy.blinkpy import Blink
 from blinkpy.auth import Auth
 
-def arm_blink():
+def arm_blink(armed):
 	username = 'YOUR_USERNAME'
 	password = 'YOUR_PASSWORD'
 	blink = Blink()
 	auth = Auth({"username": f'{username}', "password": f'{password}'})
 	blink.auth = auth
 	blink.start()
-	blink.sync["YOUR_SYNCMODULE_NAME"].arm = True
-
-def disarm_blink():
-	username = 'YOUR_USERNAME'
-	password = 'YOUR_PASSWORD'
-	blink = Blink()
-	auth = Auth({"username": f'{username}', "password": f'{password}'})
-	blink.auth = auth
-	blink.start()
-	blink.sync["YOUR_SYNCMODULE_NAME"].arm = False
+	blink.sync["YOUR_SYNCMODULE_NAME"].arm = armed
 
 target_ips = ['IP_ADDRESS']
 
@@ -45,11 +36,11 @@ while True:
 			if currently_armed == True:
 				try:
 					print('Disarming')
-					disarm_blink()
+					arm_blink(False)
 					currently_armed = False
 				except:
 					print('Disarm failed. Trying again.')
-					disarm_blink()
+					arm_blink(False)
 					currently_armed = False
 				finally:
 					pass
@@ -64,7 +55,7 @@ while True:
 
 #Check if devices have been offline for more than 5 minutes. (20)
 	if (lost_device_time == 20) and (currently_armed == False):
-		arm_blink()
+		arm_blink(True)
 		print('Armed')
 		currently_armed = True
 	else:
