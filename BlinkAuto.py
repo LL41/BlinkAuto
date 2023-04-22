@@ -36,11 +36,11 @@ while True:
             if currently_armed == True:
                 try:
                     print('Disarming')
-                    time.sleep(60)
                     arm_blink(False)
                     currently_armed = False
                 except:
                     print('Disarm failed. Trying again.')
+                    time.sleep(60)
                     arm_blink(False)
                     currently_armed = False
                 finally:
